@@ -19,10 +19,10 @@ namespace mySTL
 	template<T>
 	class vector
 	{
-		static_assert(!std::is_same<bool, T>, "vector<bool> ±»ÆúÓÃ");
+		static_assert(!std::is_same<bool, T>, "vector<bool> è¢«å¼ƒç”¨");
 	public:
-		typedef mystl::allocator<T>                      allocator_type;
-		typedef mystl::allocator<T>                      data_allocator;
+		typedef mySTL::allocator<T>                      allocator_type;
+		typedef mySTL::allocator<T>                      data_allocator;
 
 		typedef typename allocator_type::value_type      value_type;
 		typedef typename allocator_type::pointer         pointer;
@@ -34,15 +34,15 @@ namespace mySTL
 
 		typedef value_type* iterator;
 		typedef const value_type* const_iterator;
-		typedef mystl::reverse_iterator<iterator>        reverse_iterator;
-		typedef mystl::reverse_iterator<const_iterator>  const_reverse_iterator;
+		typedef mySTL::reverse_iterator<iterator>        reverse_iterator;
+		typedef mySTL::reverse_iterator<const_iterator>  const_reverse_iterator;
 		allocator_type get_allocator() { return data_allocator(); }
 	private:
-		iterator begin_;//Ê¹ÓÃ¿Õ¼äµÄÍ·²¿
-		iterator end_;//Ê¹ÓÃ¿Õ¼äµÄÎ²²¿
-		iterator cap_;//´æ´¢¿Õ¼äµÄÎ²²¿
+		iterator begin_;//ä½¿ç”¨ç©ºé—´çš„å¤´éƒ¨
+		iterator end_;//ä½¿ç”¨ç©ºé—´çš„å°¾éƒ¨
+		iterator cap_;//å­˜å‚¨ç©ºé—´çš„å°¾éƒ¨
 	public:
-		//¹¹Ôì¡¢¸´ÖÆ¡¢ÒÆ¶¯¡¢Îö¹¹º¯Êı
+		//æ„é€ ã€å¤åˆ¶ã€ç§»åŠ¨ã€ææ„å‡½æ•°
 		vector() noexcept
 		{
 			try_init();
@@ -56,7 +56,7 @@ namespace mySTL
 			fill_init(n, value);
 		}
 		template <class Iter, typename std::enable_if<
-			mystl::is_input_iterator<Iter>::value, int>::type = 0>
+			mySTL::is_input_iterator<Iter>::value, int>::type = 0>
 			vector(Iter first, Iter last)
 		{
 			MYSTL_DEBUG(!(last < first));
@@ -91,7 +91,7 @@ namespace mySTL
 			begin_ = end_ = cap_ = nullptr;
 		}
 	public:
-		//µü´úÆ÷Ïà¹Ø²Ù×÷
+		//è¿­ä»£å™¨ç›¸å…³æ“ä½œ
 		iterator begin() noexcept
 		{
 			return begin_;
@@ -140,7 +140,7 @@ namespace mySTL
 		{
 			return rend();
 		}
-		//ÈİÆ÷Ïà¹Ø²Ù×÷
+		//å®¹å™¨ç›¸å…³æ“ä½œ
 		bool      empty()    const noexcept
 		{
 			return begin_ == end_;
@@ -160,7 +160,7 @@ namespace mySTL
 		void      reserve(size_type n);
 		void      shrink_to_fit();
 
-		// ·ÃÎÊÔªËØÏà¹Ø²Ù×÷
+		// è®¿é—®å…ƒç´ ç›¸å…³æ“ä½œ
 		reference operator[](size_type n)
 		{
 			MYSTL_DEBUG(n < size());
@@ -205,7 +205,7 @@ namespace mySTL
 
 		pointer       data()       noexcept { return begin_; }
 		const_pointer data() const noexcept { return begin_; }
-		//ĞŞ¸ÄÈİÆ÷Ïà¹Ø²Ù×÷
+		//ä¿®æ”¹å®¹å™¨ç›¸å…³æ“ä½œ
 		//assign
 		void assign(size_type n, const value_type& value)
 		{
@@ -213,7 +213,7 @@ namespace mySTL
 		}
 
 		template <class Iter, typename std::enable_if<
-			mystl::is_input_iterator<Iter>::value, int>::type = 0>
+			mySTLs_input_iterator<Iter>::value, int>::type = 0>
 			void assign(Iter first, Iter last)
 		{
 			MYSTL_DEBUG(!(last < first));
@@ -222,7 +222,7 @@ namespace mySTL
 
 		void assign(std::initializer_list<value_type> il)
 		{
-			copy_assign(il.begin(), il.end(), mystl::forward_iterator_tag{});
+			copy_assign(il.begin(), il.end(), mySTL::forward_iterator_tag{});
 		}
 	};
 
